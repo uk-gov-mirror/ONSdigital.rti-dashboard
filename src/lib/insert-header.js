@@ -5,6 +5,17 @@ export default function insertHeader(
   email = "health.data@ons.gov.uk",
   emailText = "Real Time Indicators team"
 ) {
+  let parentDocument;
+  try {
+    parentDocument = window.parent.document;
+  } catch (error) {
+    if (error.name !== "SecurityError") throw error;
+    console.info(
+      "Dashboard header integration skipped: the parent page is cross-origin."
+    );
+    return;
+  }
+
   const template = `
     
 
@@ -25,13 +36,13 @@ export default function insertHeader(
 </p>
 </div>`;
 
-  if (window?.parent?.document) {
+  if (parentDocument) {
     // Insert "Dashboard" before the h1 title
-    const title = window.parent.document.getElementsByClassName(
+    const title = parentDocument.getElementsByClassName(
       "page-neutral-intro__title"
     )?.[0];
-    if (title && !window.parent.document.getElementById("dashboard-prefix")) {
-      const prefix = window.parent.document.createElement("div");
+    if (title && !parentDocument.getElementById("dashboard-prefix")) {
+      const prefix = parentDocument.createElement("div");
       prefix.id = "dashboard-prefix";
       prefix.style.fontSize = "22px";
       prefix.style.fontWeight = "400";
@@ -43,12 +54,12 @@ export default function insertHeader(
 
     // Insert metadata after the intro section
     const header =
-      window.parent.document.getElementsByClassName("page-neutral-intro")?.[1];
+      parentDocument.getElementsByClassName("page-neutral-intro")?.[1];
     if (
       header &&
-      !window.parent.document.getElementById("dashboard-metadata")
+      !parentDocument.getElementById("dashboard-metadata")
     ) {
-      const div = window.parent.document.createElement("div");
+      const div = parentDocument.createElement("div");
       div.className = "wrapper";
       div.id = "dashboard-metadata";
       div.innerHTML = template;

@@ -14,6 +14,11 @@ body {
   align-items: center;
 }
 
+#svelte {
+  width: 100%;
+  min-width: 0;
+}
+
 svg {
   padding: 0;
   margin: 0;

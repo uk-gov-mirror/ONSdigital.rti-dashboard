@@ -40,7 +40,15 @@
   $: strokeWidth =
     width && +width < 500 ? baseStrokeWidth - 0.5 : baseStrokeWidth;
   $: thousandsBoolean = toBoolean(thousands);
-  let width;
+  let width = 0;
+
+  function observeWidth(node) {
+    const observer = new ResizeObserver(([entry]) => {
+      width = entry.contentRect.width;
+    });
+    observer.observe(node);
+    return { destroy: () => observer.disconnect() };
+  }
   $: height = +width < 500 ? width * 0.5 : width * 0.4;
 
   const margin = { left: 58, top: 0, bottom: 30, right: 60 };
@@ -414,7 +422,7 @@
 <div style="padding:0px; margin-top:0px; margin-bottom:0px">
   <div
     class="chart-container"
-    bind:clientWidth={width}
+    use:observeWidth
     style:height="{height}px"
   >
     {#if width}

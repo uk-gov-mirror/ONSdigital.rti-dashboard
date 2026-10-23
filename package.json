@@ -29,8 +29,7 @@
     "vite": "^4.3.3"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0",
-    "svelte-components": "^0.0.3"
+    "sirv-cli": "^1.0.0"
   },
   "type": "module"
 }

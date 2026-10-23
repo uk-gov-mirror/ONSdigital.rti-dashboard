@@ -1315,6 +1315,7 @@
   .chart,
   .indicators-container {
     flex: 1 1 100%;
+    min-width: 0;
   }
 
   .indicators-container {
@@ -1355,6 +1356,7 @@
     align-items: center;
     gap: 8px;
     flex: 1;
+    min-width: 0;
     min-height: 32px;
   }
 
@@ -1421,6 +1423,7 @@
   .compact-change {
     padding-top: 0;
     display: flex;
+    max-width: 100%;
     align-items: center;
     gap: 12px;
   }
@@ -1512,11 +1515,13 @@
 
   .indicators-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
   }
 
   .indicators-child {
-    flex: 1;
+    flex: 1 1 120px;
+    min-width: 0;
     padding-top: 8px;
     overflow-wrap: break-word;
   }
